@@ -16,29 +16,57 @@ def getData(stlb,startDate,stopDate):
     for i in range(len(d2)):
         for j in range(len(d2[0])):
             d21[j].append(d2[i][j])"""
-    print(*d2,sep="\n")
-    print()
-    rotated = tuple(zip(*d2[::-1])) # Python 3
-    print(*rotated,sep="\n")
+#    print(*d2,sep="\n")
+#    print()
+    rotated = tuple(zip(*d2[:])) # Python 3
+#    print(*rotated,sep="\n")
     return rotated
 def createGrath(data,stlb,tp):
-    print(data[-1])
+#    print(data[-1])
     if tp == 1:
         date = []
         counter = 1
         for i in data[-1]:
             dateOne = datetime.datetime.strptime(i, "%d-%m-%Y %H:%M:%S")
-            print(dateOne)
+#            print(dateOne)
             if (0 <= dateOne.minute < 4 or 56 < dateOne.minute <= 59) and dateOne.hour%2==0:
                 date.append(dateOne.strftime("%H:%M"))
             else:
                 date.append(' ')
-    date.reverse()
-    print(date)
+#    date.reverse()
+#    print(date)
+    if tp == 3:
+        date = []
+        counter = 1
+        for i in data[-1]:
+            dateOne = datetime.datetime.strptime(i, "%d-%m-%Y %H:%M:%S")
+            #            print(dateOne)
+            if (0 <= dateOne.minute < 4 or 56 < dateOne.minute <= 59) and dateOne.hour % 8 == 0:
+                if dateOne.hour==12:
+                    date.append(dateOne.strftime("%H\n%d-%m"))
+                else:
+                    date.append(dateOne.strftime("%H"))
+            else:
+                date.append(' ')
+    if tp == 7:
+        date = []
+        counter = 1
+        for i in data[-1]:
+            dateOne = datetime.datetime.strptime(i, "%d-%m-%Y %H:%M:%S")
+            #            print(dateOne)
+            if (0 <= dateOne.minute < 4 or 56 < dateOne.minute <= 59) and dateOne.hour % 12 == 0:
+                if dateOne.hour == 12:
+                    date.append(dateOne.strftime("%H\n%d-%m"))
+                else:
+                    date.append(dateOne.strftime("%H"))
+            else:
+                date.append(' ')
+#    date.reverse()
     for i in range(len(stlb)):
         plt.plot(data[i],label=stlb[i])
-    plt.xticks(,labels=["one", "two", "three", "one"])
+    plt.xticks([i for i in range(len(date))],labels=date)
+    print(data)
     plt.legend(loc=4)
     plt.show()
-x=getData(["inT","inH"],"22-11-2022 10:8:0","22-11-2022 13:55:0")
-createGrath(x,["inT","inH"],1)
+x=getData(["inT","inH"],"22-11-2022 00:00:0","29-11-2022 00:00:0")
+createGrath(x,["inT","inH"],7)

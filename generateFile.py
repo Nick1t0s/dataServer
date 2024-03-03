@@ -15,4 +15,4 @@ def generateFile(path,startDT,inter,count):
         p2="\\".join(path)+"\\"+st.strftime("%d-%m-%Y %H-%M-%S")+".txt"
         with open(p2,"w") as file:
             file.write(f"{st.strftime("%d-%m-%Y %H:%M:%S")}#{t()}#{h()}#{t()}#{h()}#{sh()}#{sh()}#{sh()}")
-generateFile(["C:","f"],"22-11-2022 0:0:0",5,288)
+generateFile(["C:","f"],"22-11-2022 0:0:0",5,2000)
